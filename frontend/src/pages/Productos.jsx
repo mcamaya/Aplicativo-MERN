@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MainTable from "../components/MainTable";
 import { urlApi, allKeys } from "../data/ProductosData";
-import "./Productos.css";
+import "./Pages.css";
 
 export default function Productos() {
   const [productos, setProductos] = useState([]);
@@ -42,7 +42,7 @@ export default function Productos() {
   };
 
   return (
-    <div className="product-container">
+    <div className="page-container">
       <div className={`alerta ${!alerta ? "ocultar" : ""}`}>{alerta}</div>
       <MainTable
         apiData={productos}

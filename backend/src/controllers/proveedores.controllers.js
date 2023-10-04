@@ -3,7 +3,7 @@ import { httpErrors } from "../helpers/handleErrors.js";
 
 export const getProveedores = async (req, res) => {
     try {
-        const proveedoresDB = await Proveedor.find();
+        const proveedoresDB = await Proveedor.find({activo:true});
         res.status(200).json(proveedoresDB);
     } catch (err) {
         httpErrors(res, err);
