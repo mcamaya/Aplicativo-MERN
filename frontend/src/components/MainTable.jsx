@@ -4,7 +4,7 @@ import {HiTrash} from "react-icons/hi"
 import {ImPencil} from "react-icons/im"
 import "./MainTable.css";
 
-export default function MainTable({ objKeys, apiFetch, apiData, title }) {
+export default function MainTable({ objKeys, apiFetch, apiData, title, deleteData }) {
   useEffect(() => {
     apiFetch();
   }, []);
@@ -27,7 +27,6 @@ export default function MainTable({ objKeys, apiFetch, apiData, title }) {
             <Table.Row className="table-row" key={registro._id}>
               {objKeys.map(({field, subfield}, index) => (
                 <Table.Cell key={index}>
-                  {console.log(registro[field][subfield])}
                   { subfield == undefined ? registro[field] : registro[field][subfield]}
                 </Table.Cell>
               ))}
@@ -37,7 +36,7 @@ export default function MainTable({ objKeys, apiFetch, apiData, title }) {
                 </Button>
               </Table.Cell>
               <Table.Cell>
-                <Button className="delete icon-btn">
+                <Button className="delete icon-btn" onClick={() => deleteData(registro._id)}>
                   <HiTrash className="table-icon"/>
                 </Button>
               </Table.Cell>

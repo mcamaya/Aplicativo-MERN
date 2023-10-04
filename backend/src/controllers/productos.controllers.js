@@ -4,7 +4,7 @@ import { httpErrors } from "../helpers/handleErrors.js";
 
 export const getAllProductos = async (req, res) => {
     try {
-        const productosdDB = await Producto.find().populate('proveedor');
+        const productosdDB = await Producto.find({activo: true}).populate('proveedor');
         res.status(200).json(productosdDB);
     } catch (err) {
         httpErrors(res, err);

@@ -1,0 +1,24 @@
+.product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.alerta {
+  background-color: rgb(113, 255, 100);
+  border-radius: 10px;
+  height: 50px;
+  width: 90%;
+  position: absolute;
+  top: -25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.ocultar {
+  display: none;
+}

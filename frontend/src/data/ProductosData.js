@@ -18,11 +18,11 @@ export const allKeys = [
     field: 'categoria',
     thead: 'Categoría'
   },
-  {
+  /* {
     field: `proveedor`,
-    subfield:"nombre",
+    subfield:'nombre',
     thead: 'Proveedor'
-  },
+  }, */
   {
     field: 'descripcion',
     thead: 'Descripción'
