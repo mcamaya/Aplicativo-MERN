@@ -19,7 +19,7 @@ export const allKeys = [
     thead: 'Categoría'
   },
   {
-    field: `proveedor.nombre`,
+    field: `proveedor`,
     subfield: 'nombre',
     thead: 'Proveedor'
   },

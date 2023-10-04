@@ -21,9 +21,9 @@ export default function MainTable({ objKeys, apiFetch, apiData, title }) {
         <TableBody>
           {apiData.map((registro) => (
             <Table.Row className="table-row" key={registro._id}>
-              {objKeys.map((item, index) => (
+              {objKeys.map(({field, subfield}, index) => (
                 <Table.Cell key={index}>
-                  {registro[item.field]}
+                  { subfield ? registro[field][subfield] : registro[field]}
                 </Table.Cell>
               ))}
             </Table.Row>
