@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 1rem;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.table-container {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+table td, table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #ececec;}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #024780;
+  color: white;
+}
+
+.main-title {
+  font-weight: 700;
+  font-size: 2rem;
+}
