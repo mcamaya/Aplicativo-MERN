@@ -22,5 +22,4 @@ export default function Productos() {
       />
     </div>
   );
-  return <div>Productos</div>;
 }
