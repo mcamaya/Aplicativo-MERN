@@ -15,6 +15,7 @@ export default function Facturas() {
     })
       .then((res) => res.json())
       .then((data) => setFacturas(data))
+      
       .catch((err) => console.log(err));
   };
 

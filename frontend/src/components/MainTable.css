@@ -34,3 +34,30 @@ table th {
   font-weight: 700;
   font-size: 2rem;
 }
+
+.delete {
+  background-color: red;
+}
+
+.edit {
+  background-color: #00bdd6;
+}
+
+.table-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.icon-btn {
+  border: none;
+  padding: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+}
