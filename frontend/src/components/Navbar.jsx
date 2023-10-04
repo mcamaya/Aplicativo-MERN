@@ -13,14 +13,14 @@ export default function Navbar() {
     <>
       <div className="navbar">
         <Link to="#" className="icon hamburguesa">
-          <FaBars onClick={() => toggleSidebar()} />
+          <FaBars className="icon" onClick={() => toggleSidebar()} />
         </Link>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-        <ul className="nav-menu__items">
+        <ul onClick={() => toggleSidebar()} className="nav-menu__items">
           <li className="navbar-close">
-            <Link to="#" className="icon cerrar">
-              <FaWindowClose onClick={() => toggleSidebar()}/>
+            <Link to="#" className="cerrar">
+              <FaWindowClose className="icon" onClick={() => toggleSidebar()}/>
             </Link>
           </li>
           {SidebarData.map((item, index) => (
