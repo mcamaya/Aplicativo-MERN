@@ -7,14 +7,19 @@ export default function Clientes() {
 
   const fetchClientes = () => {
     fetch(urlApi)
-    .then((res) => res.json())
-    .then((data) => setClientes(data))
-    .catch((err) => console.log(err));
-  }
+      .then((res) => res.json())
+      .then((data) => setClientes(data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
-      <MainTable apiData={clientes} objKeys={allKeys} apiFetch={() => fetchClientes()} title={"Clientes"} />
+      <MainTable
+        apiData={clientes}
+        objKeys={allKeys}
+        apiFetch={() => fetchClientes()}
+        title={"Clientes"}
+      />
     </div>
   );
 }
