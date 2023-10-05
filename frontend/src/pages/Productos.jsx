@@ -7,10 +7,6 @@ export default function Productos() {
   const [productos, setProductos] = useState([]);
   const [alerta, setAlerta] = useState("");
 
-  const toggleAlerta = (msg) => {
-    setAlerta(msg);
-  };
-
   useEffect(() => {
     fetchProductos();
     setTimeout(() => {
@@ -37,7 +33,7 @@ export default function Productos() {
       },
     })
       .then((res) => res.json())
-      .then((res) => toggleAlerta(res.msg))
+      .then((res) => setAlerta(res.msg))
       .catch((err) => console.log(err));
   };
 

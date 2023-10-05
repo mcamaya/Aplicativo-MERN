@@ -20,6 +20,10 @@ table td, table th {
   padding: 8px;
 }
 
+td {
+  max-width: 410px;
+}
+
 table tr:nth-child(even){background-color: #ececec;}
 
 table th {

@@ -1,0 +1,30 @@
+.acordeones-container {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  min-height: 90vh;
+  padding: 3rem;
+}
+
+.acordeon {
+  width: 90%;
+}
+
+.acordeon-title {
+  background-color: rgb(70, 27, 95);
+  color: aliceblue;
+  font-weight: 600;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.acordeon-content {
+  padding: 1.5rem;
+  background-color: rgb(235, 170, 255);
+}
+
+.product-ul {
+  display: flex;
+  justify-content: space-evenly;
+}

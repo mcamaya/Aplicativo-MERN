@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MainTable from "../components/MainTable";
 import { urlApi, allKeys } from "../data/FacturasData";
+import TablaFacturas from "../components/TablaFacturas";
 
 export default function Facturas() {
   const [facturas, setFacturas] = useState([]);
@@ -21,7 +22,7 @@ export default function Facturas() {
 
   return (
     <div>
-      <MainTable
+      <TablaFacturas
         apiData={facturas}
         objKeys={allKeys}
         apiFetch={() => fetchFacturas()}

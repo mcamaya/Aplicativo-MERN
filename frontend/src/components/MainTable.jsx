@@ -14,7 +14,7 @@ export default function MainTable({ objKeys, apiFetch, apiData, title, deleteDat
       <h2 className="main-title">{title}</h2>
       <Table singleLine>
         <Table.Header>
-          <Table.Row className="table-row">
+          <Table.Row>
             {objKeys.map((item, index) => (
               <Table.HeaderCell key={index}>{item.thead}</Table.HeaderCell>
             ))}
@@ -24,7 +24,7 @@ export default function MainTable({ objKeys, apiFetch, apiData, title, deleteDat
         </Table.Header>
         <TableBody>
           {apiData.map((registro) => (
-            <Table.Row className="table-row" key={registro._id}>
+            <Table.Row key={registro._id}>
               {objKeys.map(({field, subfield}, index) => (
                 <Table.Cell key={index}>
                   { subfield == undefined ? registro[field] : registro[field][subfield]}

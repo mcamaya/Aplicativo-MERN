@@ -5,11 +5,7 @@ import './Pages.css';
 
 export default function Clientes() {
   const [clientes, setClientes] = useState([]);
-
   const [alerta, setAlerta] = useState('');
-  const toggleAlerta = (msg) => {
-    setAlerta(msg);
-  };
 
   useEffect(() => {
     fetchClientes();
@@ -34,7 +30,7 @@ export default function Clientes() {
       },
     })
       .then((res) => res.json())
-      .then((res) => toggleAlerta(res.msg))
+      .then((res) => setAlerta(res.msg))
       .catch((err) => console.log(err));
   };
 
