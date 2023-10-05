@@ -35,6 +35,10 @@ const FacturaSchema = new Schema({
         type: Number,
         default: 0
     },
+    totalVenta: {
+        type: Number,
+        required: true
+    },
     impuestoAdicional: Number
 }, {
     versionKey: false

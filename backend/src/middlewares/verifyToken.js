@@ -13,7 +13,6 @@ const verifyToken = async (req = request, res = response, next) => {
         if(!user) return res.status(401).json({msg: 'Usuario no encontrado en la base de datos mediante token'});
         
         req.usuario = user;
-        console.log(`Usuario token`, req.usuario);
         next();
     } catch (err) {
         return res.status(500).json({msg: 'Acción no autorizada', err});

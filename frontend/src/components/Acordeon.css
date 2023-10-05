@@ -1,0 +1,46 @@
+
+.acordeon-title {
+  min-width: 90vw;
+  border: 1px solid rgb(170, 170, 170);
+  background-color: rgb(231, 231, 231);
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+.acordeon-content {
+  margin-bottom: 7px;
+}
+
+.product-ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.facturas-table {
+  width: 100%;
+  background-color: aliceblue;
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.facturas-table tr {
+  border-bottom: 1px solid rgb(128, 128, 128);
+}
+
+.facturas-table td {
+  padding: 0.5rem 0.2rem;
+}
+
+.facturas-table thead {
+  background-color: black;
+  color: white;
+}
+
+.facturas-table th {
+  padding: 0.5rem 0.2rem;
+}

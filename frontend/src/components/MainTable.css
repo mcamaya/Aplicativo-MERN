@@ -1,9 +1,10 @@
-table {
-  width: 100%;
+.main-table {
+  min-width: 90vw;
   background-color: rgb(255, 255, 255);
   padding: 1rem;
   border-collapse: collapse;
   text-align: center;
+  margin-top: 2rem;
 }
 
 .table-container {
@@ -15,18 +16,18 @@ table {
   min-height: 100%;
 }
 
-table td, table th {
+.main-table td, .main-table th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-td {
+.main-table td {
   max-width: 410px;
 }
 
-table tr:nth-child(even){background-color: #ececec;}
+.main-table tr:nth-child(even){background-color: #ececec;}
 
-table th {
+.main-table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -47,7 +48,7 @@ table th {
   background-color: #00bdd6;
 }
 
-.table-icon {
+.main-table-icon {
   height: 20px;
   width: 20px;
 }
