@@ -3,7 +3,29 @@ import { httpErrors } from "../helpers/handleErrors.js";
 
 export const getFacturas = async (req, res) => {
     try {
-        const facturasDB = await Factura.find().populate('clienteId', 'nombre');
+        const facturasDB = await Factura.aggregate([
+			{
+				$project: {
+					_id: 1,
+					total: {
+						$sum: {
+							$map: {
+								input: "$productosIds",
+								as: "prd",
+								in: { $multiply: ["$$prd.precio", "$$prd.cantidad"] },
+							},
+						},
+					},
+				},
+			},
+			{
+				$group: {
+					_id: "$_id",
+					totalVenta: { $sum: "$total" },
+				},
+			},
+			{ $merge: { into: "facturas222", whenMatched: "merge" } },
+		]).populate("clienteId", "nombre");
         res.status(200).json(facturasDB);
     } catch (err) {
         httpErrors(res, err);

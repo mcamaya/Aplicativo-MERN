@@ -1,0 +1,19 @@
+db.facturas222.aggregate([
+  { "$project": { 
+      "_id": 1,  
+      "total": { 
+          "$sum": { 
+              "$map": { 
+                  "input": "$productosIds",
+                  "as": "prd",
+                  "in": { "$multiply": ["$$prd.precio", "$$prd.cantidad"]} 
+              }
+          }
+      }
+  }},
+  { "$group": { 
+      "_id": "$_id", 
+      "totalVenta": { "$sum": "$total" } 
+  }},
+  { "$merge": { "into": "facturas222", "whenMatched": "merge" } }
+])

@@ -1,0 +1,19 @@
+use("servitecaBga");
+db.facturas222.aggregate([
+  { "$project": { 
+      "_id": 1,  
+      "totalVentaConsulta": { 
+          "$sum": { 
+              "$map": { 
+                  "input": "$productosIds",
+                  "as": "prd",
+                  "in": { "$multiply": ["$$prd.precio", "$$prd.cantidad"]} 
+              }
+          }
+      }
+  }},
+  { "$group": { 
+      "_id": "$_id", 
+      "total": { "$sum": "$total" } 
+  }}
+])
