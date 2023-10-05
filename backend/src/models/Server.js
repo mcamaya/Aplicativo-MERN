@@ -17,7 +17,11 @@ class Server {
 
     middlewares(){
         this.app.use(express.json());
-        this.app.use(cors());
+        this.app.use(cors({
+            origin: '*',
+            credentials: true,
+            optionsSuccessStatus: 200
+        }));
     }
 
     async initialSetUp(){

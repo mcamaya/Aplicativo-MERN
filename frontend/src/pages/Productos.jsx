@@ -46,6 +46,7 @@ export default function Productos() {
         apiFetch={() => fetchProductos()}
         deleteData={deleteProductos}
         title={"Productos"}
+        rowClass={(registro) => {}}
       />
     </div>
   );

@@ -39,14 +39,14 @@ export default function Acordeon({ totalVenta, productos, cliente, fecha, numero
               </thead>
               <tbody>
                 {productos.map((prd, index) => (
-                  <tr className="single-product" key={index}>
+                  <tr className="single-product product-row" key={index}>
                     <td>{prd.cantidad}</td>
                     <td>{prd.nombre}</td>
                     <td>${prd.precio.toLocaleString()}</td>
                     <td>${(prd.precio * prd.cantidad).toLocaleString()}</td>
                   </tr>
                 ))}
-                <tr>
+                <tr className="product-row">
                   <td></td>
                   <td></td>
                   <td>

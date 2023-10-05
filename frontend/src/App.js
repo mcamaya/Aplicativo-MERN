@@ -10,6 +10,7 @@ import Clientes from "./pages/Clientes";
 import Proveedores from "./pages/Proveedores";
 import Productos from "./pages/Productos";
 import Facturas from "./pages/Facturas";
+import Inventario from "./pages/Inventario";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path="proveedores" element={<Proveedores/>}> </Route> 
       <Route path="productos" element={<Productos/>}> </Route> 
       <Route path="facturas" element={<Facturas/>}> </Route> 
+      <Route path="inventario" element={<Inventario/>}> </Route> 
     </Route>
   )
 );

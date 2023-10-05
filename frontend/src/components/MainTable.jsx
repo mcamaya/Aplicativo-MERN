@@ -10,6 +10,7 @@ export default function MainTable({
   apiData,
   title,
   deleteData,
+  rowClass,
 }) {
   useEffect(() => {
     apiFetch();
@@ -30,7 +31,7 @@ export default function MainTable({
         </Table.Header>
         <TableBody>
           {apiData.map((registro) => (
-            <Table.Row key={registro._id}>
+            <Table.Row className={rowClass(registro)} key={registro._id}>
               {objKeys.map(({ field, subfield }, index) => (
                 <Table.Cell key={index}>
                   {subfield == undefined

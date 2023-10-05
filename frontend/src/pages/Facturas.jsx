@@ -27,6 +27,7 @@ export default function Facturas() {
         objKeys={allKeys}
         apiFetch={() => fetchFacturas()}
         title={"Facturas"}
+        rowClass={(registro) => {}}
       />
     </div>
   );

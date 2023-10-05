@@ -44,6 +44,7 @@ export default function Proveedores() {
         apiFetch={() => fetchProveedores()}
         title={"Proveedores"}
         deleteData={deleteProveedores}
+        rowClass={(registro) => {}}
       />
     </div>
   );

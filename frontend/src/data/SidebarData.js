@@ -3,6 +3,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
 import { BiSolidReceipt } from "react-icons/bi";
+import { FaTruck } from "react-icons/fa";
 
 const SidebarData = [
   {
@@ -15,7 +16,7 @@ const SidebarData = [
     title: "Proveedores",
     path: "/proveedores",
     class: "nav-text",
-    icon: <BsFillBoxSeamFill />,
+    icon: <FaTruck />,
   },
   {
     title: "Productos",
@@ -28,6 +29,12 @@ const SidebarData = [
     path: "/facturas",
     class: "nav-text",
     icon: <BiSolidReceipt />,
+  },
+  {
+    title: "Inventario",
+    path: "/inventario",
+    class: "nav-text",
+    icon: <BsFillBoxSeamFill />,
   },
 ];
 

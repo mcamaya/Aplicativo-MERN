@@ -43,6 +43,7 @@ export default function Clientes() {
         apiFetch={() => fetchClientes()}
         title={"Clientes"}
         deleteData={deleteClientes}
+        rowClass={(registro) => {}}
       />
     </div>
   );
