@@ -13,7 +13,6 @@ router.get('/:id', clientesController.getClienteByID);
 
 router.post('/', [
     verifyToken,
-    isAdminRole,
     check('nombre', 'Favor ingrese el nombre').not().isEmpty(),
     check('numeroDocumento', 'Favor ingrese el numero documento').not().isEmpty(),
     check('numeroDocumento').custom(existeDocumentoCliente),

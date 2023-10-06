@@ -49,6 +49,7 @@ export const updateCliente = async (req, res) => {
             req.body,
             {new:true}
         );
+        
         res.status(200).json(updatedCliente);
     } catch (err) {
         httpErrors(res, err)

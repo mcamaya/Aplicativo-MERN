@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+
+servers:
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+
+paths:
+# Clientes
+  /api/v1/clientes:
+    get:
+      tags:
+        - Clientes
+      summary: Obtener clientes
+      description: Devuelve una lista con todos los clientes
+      responses:
+        '200':
+          description: Un array JSON con información de los clientes
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Cliente'
+    
+    post:
+      tags:
+        - Clientes
+      summary: Añade un nuevo cliente
+      description: Crear un nuevo registro de cliente
+      parameters:
+        - $ref: '#/components/parameters/jwtUser'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Cliente añadido a la base de datos
+        '401':
+          description: Falta enviar token de autenticación
+        '500':
+          description: Error del servidor
+          
+    
+  /api/v1/clientes/{clienteId}:
+    get:
+      tags:
+        - Clientes
+      summary: Obtener un solo cliente
+      description: Devuelve una lista con todos los clientes
+      parameters:
+        - $ref: '#/components/parameters/clienteID'
+        
+      responses:
+        '200':
+          description: Un objeto JSON con información del cliente en específico
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: Cliente ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+          
+          
+    patch:
+      tags:
+        - Clientes
+      summary: Edita datos de un cliente
+      parameters:
+        - $ref: '#/components/parameters/clienteID'
+        - $ref: '#/components/parameters/jwtUser'
+            
+      requestBody:
+        description: Puede enviar cualquiera de los siguientes campos.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Cliente añadido a la base de datos
+        '401':
+          description: Falta enviar token de autenticación
+        '404':
+          description: Cliente ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+
+    delete:
+        tags:
+          - Clientes
+        summary: Marcar cliente inactivo
+        description: Eliminamos virtualmente al cliente marcándolo como inactivo
+        parameters:
+          - $ref: '#/components/parameters/clienteID'
+          
+        responses:
+          '200':
+            description: Un objeto JSON con información del cliente en específico
+            content:
+              application/json:
+                schema: 
+                  $ref: '#/components/schemas/Cliente'
+          '404':
+            description: Cliente ID no encontrado en la base de datos
+          '500':
+            description: Error del servidor
+        
+# Productos
+  /api/v1/productos:
+    get:
+      tags:
+        - Productos
+      summary: Obtener productos
+      description: Devuelve una lista con todos los productos
+      responses:
+        '200':
+          description: Un array JSON con información de los productos
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Producto'
+
+components:
+  parameters:
+    jwtAdmin:
+      in: header
+      name: x-auth-token
+      required: true
+      description: JWT obtenido en la autenticación. El usuario debe tener rol ADMIN.
+      schema:
+        type: string
+    
+    jwtUser:
+      in: header
+      name: x-auth-token
+      required: true
+      description: JWT obtenido en la autenticación. No importa el rol del usuario.
+      schema:
+        type: string
+    
+    clienteID:
+      name: clienteId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 0Ky3izFSyof9UStsdp28W
+        
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 0Ky3izFSyof9UStsdp28W
+        nombre:
+          type: string
+          example: María Rodríguez
+        numeroDocumento:
+          type: integer
+          example: 1095324158
+        tipoDocumento:
+          type: string
+          enum:
+            - Cédula de Ciudadanía
+            - Tarjeta de Identidad
+            - Cédula de Extranjería
+        activo:
+          type: boolean
+        celular:
+          type: integer
+          example: 3182541033
+        email:
+          type: string
+          example: maria@example.org
+        direccion:
+          type: string
+          example: 'Calle 8 #19-70'
+    
+    Producto:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: O2stXvOweEb9Uts_slAuX
+        nombre:
+          type: string
+          example: Freno de Disco Cerámico
+        precio:
+          type: integer
+          example: 120000
+        codigoInterno:
+          type: string
+          example: abc123
+        categoria:
+          type: string
+          example: Frenos
+        activo:
+          type: boolean
+        proveedor:
+          type: string
+          example: O2stXvOweEb9Uts_slAuX
+          description: ID del proveedor del producto
+        descripcion:
+          type: string
+          example: Frenos de disco de cerámica super eficientes
+        iva:
+          type: integer
+          example: 19
+        
+      required:  
+        - id
+        - name
+        - numeroDocumento
+        - tipoDocumento
+        - celular
+        - email
+        - direccion
