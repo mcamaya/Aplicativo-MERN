@@ -13,7 +13,8 @@ const ProveedorSchema = new Schema({
     },
     numeroDocumento: {
         type: Number,
-        unique: true
+        unique: true,
+        required: true
     },
     tipoDocumento: {
         type: String,

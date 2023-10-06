@@ -1,0 +1,660 @@
+openapi: 3.0.0
+info:
+  title: Serviteca Bucaramanga API REST
+  description: Por cambiar
+  version: 0.1.9
+
+
+paths:
+
+#Authentication
+  /api/v1/auth:
+    post:
+      tags:
+        - Autenticación
+      summary: Devuelve el JWT requerido
+      description: Crear un nuevo registro de cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: pedrosol@example.com
+                password:
+                  type: string
+                  example: '123456'
+              
+      responses:
+        '200':
+          description: Cliente añadido a la base de datos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth'
+        '500':
+          description: Error del servidor
+
+
+# Clientes
+  /api/v1/clientes:
+    get:
+      tags:
+        - Clientes
+      summary: Obtener clientes
+      description: Devuelve una lista con todos los clientes
+      responses:
+        '200':
+          description: Un array JSON con información de los clientes
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Cliente'
+    
+    post:
+      tags:
+        - Clientes
+      summary: Añade un nuevo cliente
+      description: Crear un nuevo registro de cliente
+      parameters:
+        - $ref: '#/components/parameters/jwtUser'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Cliente añadido a la base de datos
+        '401':
+          description: Falta enviar token de autenticación
+        '500':
+          description: Error del servidor
+          
+    
+  /api/v1/clientes/{clienteId}:
+    get:
+      tags:
+        - Clientes
+      summary: Obtener un solo cliente
+      description: Devuelve una lista con todos los clientes
+      parameters:
+        - $ref: '#/components/parameters/clienteID'
+        
+      responses:
+        '200':
+          description: Un objeto JSON con información del cliente en específico
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: Cliente ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+          
+          
+    patch:
+      tags:
+        - Clientes
+      summary: Edita datos de un cliente
+      parameters:
+        - $ref: '#/components/parameters/clienteID'
+        - $ref: '#/components/parameters/jwtUser'
+            
+      requestBody:
+        description: Puede editar cualquiera de los siguientes campos.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Cliente editado con éxito
+        '401':
+          description: Falta enviar token de autenticación
+        '404':
+          description: Cliente ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+
+    delete:
+        tags:
+          - Clientes
+        summary: Marcar cliente inactivo
+        description: Eliminamos virtualmente al cliente marcándolo como inactivo
+        parameters:
+          - $ref: '#/components/parameters/clienteID'
+          
+        responses:
+          '200':
+            description: Un objeto JSON con información del cliente en específico
+            content:
+              application/json:
+                schema: 
+                  $ref: '#/components/schemas/Cliente'
+          '404':
+            description: Cliente ID no encontrado en la base de datos
+          '500':
+            description: Error del servidor
+        
+# Productos
+  /api/v1/productos:
+    get:
+      tags:
+        - Productos
+      summary: Obtener productos
+      description: Devuelve una lista con todos los productos
+      responses:
+        '200':
+          description: Un array JSON con información de los productos
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Producto'
+
+    post:
+      tags:
+        - Productos
+      summary: Añade un nuevo producto
+      description: Crear un nuevo registro de producto
+      parameters:
+        - $ref: '#/components/parameters/jwtAdmin'
+      requestBody:
+        description: Importante enviar también los datos de stockDisponible y stockMinimo para guardar en el registro de inventario.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoPost'
+      responses:
+        '200':
+          description: Producto añadido a la base de datos
+        '401':
+          description: Falta enviar token de autenticación
+        '500':
+          description: Error del servidor
+
+  /api/v1/productos/{productoId}:
+    get:
+      tags:
+        - Productos
+      summary: Obtener un solo producto
+      description: Devuelve una lista con todos los productos
+      parameters:
+        - $ref: '#/components/parameters/productoID'
+        
+      responses:
+        '200':
+          description: Un objeto JSON con información del producto en específico
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Producto'
+        '404':
+          description: Producto ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+
+    patch:
+      tags:
+        - Productos
+      summary: Edita datos de un producto
+      parameters:
+        - $ref: '#/components/parameters/productoID'
+        - $ref: '#/components/parameters/jwtUser'
+            
+      requestBody:
+        description: Puede editar cualquiera de los siguientes campos.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Producto'
+      responses:
+        '200':
+          description: Producto editado con éxito
+        '401':
+          description: Falta enviar token de autenticación
+        '404':
+          description: Producto ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+
+    delete:
+        tags:
+          - Productos
+        summary: Marcar producto inactivo
+        description: Eliminamos virtualmente al producto marcándolo como inactivo
+        parameters:
+          - $ref: '#/components/parameters/productoID'
+          - $ref: '#/components/parameters/jwtAdmin'
+          
+        responses:
+          '200':
+            description: Un objeto JSON con información del producto en específico
+            content:
+              application/json:
+                schema: 
+                  $ref: '#/components/schemas/Producto'
+          '404':
+            description: Producto ID no encontrado en la base de datos
+          '500':
+            description: Error del servidor
+
+# Proveedores
+  /api/v1/proveedores:
+    get:
+      tags:
+        - Proveedores
+      summary: Obtener proveedores
+      description: Devuelve una lista con todos los proveedores
+      responses:
+        '200':
+          description: Un array JSON con información de los proveedores
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Proveedor'
+
+    post:
+      tags:
+        - Proveedores
+      summary: Añade un nuevo proveedor
+      description: Crear un nuevo registro de proveedor
+      parameters:
+        - $ref: '#/components/parameters/jwtAdmin'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Proveedor'
+      responses:
+        '200':
+          description: Proveedor añadido a la base de datos
+        '401':
+          description: Falta enviar token de autenticación
+        '500':
+          description: Error del servidor
+
+  /api/v1/proveedores/{proveedorId}:
+    get:
+      tags:
+        - Proveedores
+      summary: Obtener un solo proveedor
+      description: Devuelve una lista con todos los proveedores
+      parameters:
+        - $ref: '#/components/parameters/proveedorID'
+        
+      responses:
+        '200':
+          description: Un objeto JSON con información del proveedor en específico
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Proveedor'
+        '404':
+          description: Proveedor ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+
+    patch:
+      tags:
+        - Proveedores
+      summary: Edita datos de un proveedor
+      parameters:
+        - $ref: '#/components/parameters/proveedorID'
+        - $ref: '#/components/parameters/jwtUser'
+            
+      requestBody:
+        description: Puede editar cualquiera de los siguientes campos.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Proveedor'
+      responses:
+        '200':
+          description: Proveedor editado con éxito
+        '401':
+          description: Falta enviar token de autenticación
+        '404':
+          description: Proveedor ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+
+    delete:
+        tags:
+          - Proveedores
+        summary: Marcar proveedor inactivo
+        description: Eliminamos virtualmente al proveedor marcándolo como inactivo
+        parameters:
+          - $ref: '#/components/parameters/proveedorID'
+          - $ref: '#/components/parameters/jwtAdmin'
+          
+        responses:
+          '200':
+            description: Un objeto JSON con información del proveedor en específico
+            content:
+              application/json:
+                schema: 
+                  $ref: '#/components/schemas/Proveedor'
+          '404':
+            description: Proveedor ID no encontrado en la base de datos
+          '500':
+            description: Error del servidor
+
+# Facturas
+
+
+# Inventario
+  /api/v1/inventario:
+    get:
+      tags:
+        - Inventario
+      summary: Obtener inventario
+      description: Devuelve una lista con todos el inventario
+      responses:
+        '200':
+          description: Un array JSON con información de el inventario
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Inventario'
+  
+  /api/v1/inventario/{itemInventarioId}:
+    get:
+      tags:
+        - Inventario
+      summary: Obtener item de inventario
+      parameters:
+        - $ref: '#/components/parameters/inventarioID'
+      description: Devuelve una lista con el registro de inventario en específico.
+      responses:
+        '200':
+          description: Un objeto JSON con el registro de inventario
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Inventario'
+
+    patch:
+      tags:
+        - Inventario
+      summary: Edita datos de un registro de inventario
+      parameters:
+        - $ref: '#/components/parameters/inventarioID'
+        - $ref: '#/components/parameters/jwtUser'
+            
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stockDisponible: 
+                  type: integer
+                  example: 15
+                stockMinimo: 
+                  type: integer
+                  example: 5
+
+      responses:
+        '200':
+          description: Registro editado con éxito
+        '401':
+          description: Falta enviar token de autenticación
+        '404':
+          description: Registro ID no encontrado en la base de datos
+        '500':
+          description: Error del servidor
+
+# Componentes
+
+components:
+  parameters:
+    jwtAdmin:
+      in: header
+      name: x-auth-token
+      required: true
+      description: JWT obtenido en la autenticación. El usuario debe tener rol ADMIN.
+      schema:
+        type: string
+    
+    jwtUser:
+      in: header
+      name: x-auth-token
+      required: true
+      description: JWT obtenido en la autenticación. No importa el rol del usuario.
+      schema:
+        type: string
+    
+    clienteID:
+      name: clienteId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 0Ky3izFSyof9UStsdp28W
+
+    productoID:
+      name: productoId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: eKXFky3N72sGsmvkUL2n2
+    
+    proveedorID:
+      name: proveedorId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: jTeBB7O8xVqnw9upRlm3N
+    
+    inventarioID:
+      name: itemInventarioId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: w0qGGqucwgpC113p2DFzP
+        
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 0Ky3izFSyof9UStsdp28W
+        nombre:
+          type: string
+          example: María Rodríguez
+        numeroDocumento:
+          type: integer
+          example: 1095324158
+        tipoDocumento:
+          type: string
+          enum:
+            - Cédula de Ciudadanía
+            - Tarjeta de Identidad
+            - Cédula de Extranjería
+        activo:
+          type: boolean
+        celular:
+          type: integer
+          example: 3182541033
+        email:
+          type: string
+          example: maria@example.org
+        direccion:
+          type: string
+          example: 'Calle 8 #19-70'
+      required:  
+        - _id
+        - nombre
+        - numeroDocumento
+        - tipoDocumento
+        - celular
+        - email
+        - direccion
+    
+    Auth:
+      type: object
+      properties:
+        usuario:
+          type: object
+          properties:
+            nombre:
+              type: string
+              example: Pedro Solano
+            email: 
+              type: string
+              example: pedrosol@example.com
+            password: 
+              type: string
+              example: $2a$10$xjVumFCLToO3eOto3540VOhfvzj8PYE1Kg2gM32DwwGa86F0Mod5q
+            rol: 
+              type: string
+              example: ADMIN
+            activo: 
+              type: boolean
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW5vaWQiOiJLSGNxUW1FODB2U184cmMwODY3Y2ciLCJpYXQiOjE2OTY2MTU0NzIsImV4cCI6MTY5NjY1ODY3Mn0.DBhYYHNCOq4bkb931ZkrOnKmuk15mm8bnDqMxMoULFY
+
+    Producto:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: O2stXvOweEb9Uts_slAuX
+        nombre:
+          type: string
+          example: Freno de Disco Cerámico
+        precio:
+          type: integer
+          example: 120000
+        codigoInterno:
+          type: string
+          example: abc123
+        categoria:
+          type: string
+          example: Frenos
+        activo:
+          type: boolean
+        proveedor:
+          type: string
+          example: O2stXvOweEb9Uts_slAuX
+          description: ID del proveedor del producto
+        descripcion:
+          type: string
+          example: Frenos de disco de cerámica super eficientes
+        iva:
+          type: integer
+          example: 19
+      required:  
+        - _id
+        - nombre
+        - precio
+        - categoria
+        
+    ProductoPost:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Freno de Disco Cerámico
+        precio:
+          type: integer
+          example: 120000
+        codigoInterno:
+          type: string
+          example: abc123
+        categoria:
+          type: string
+          example: Frenos
+        proveedor:
+          type: string
+          example: O2stXvOweEb9Uts_slAuX
+          description: ID del proveedor del producto
+        descripcion:
+          type: string
+          example: Frenos de disco de cerámica super eficientes
+        stockDisponible: 
+          type: integer
+          example: 25
+        stockMinimo: 
+          type: integer
+          example: 12
+
+    Proveedor:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: jTeBB7O8xVqnw9upRlm3N
+        nombre:
+          type: string
+          example: ColRepuestos SAS
+        numeroDocumento:
+          type: integer
+          example: 534861354233
+        tipoDocumento:
+          type: string
+          example: NIT
+        telefono:
+          type: integer
+          example: 3001148745
+        departamento:
+          type: string
+          example: Boyacá
+        pais:
+          type: string
+          example: Colombia
+        activo:
+          type: boolean
+      required:  
+        - _id
+        - nombre
+        - numeroDocumento
+        - telefono
+
+    Inventario:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: d_Po4ze_n2jHqisx0K7hf
+        producto:
+          type: object
+          properties:
+            _id:
+              type: integer
+              example: O2stXvOweEb9Uts_slAuX
+            nombre:
+              type: string
+              example: Freno de Disco Cerámico
+            precio:
+              type: integer
+              example: 230000
+        stockDisponible:
+          type: integer
+          example: 20
+        stockMinimo:
+          type: integer
+          example: 5
+      required:  
+        - _id
+        - producto
+        - stockDisponible
+        - stockMinimo    
+        
