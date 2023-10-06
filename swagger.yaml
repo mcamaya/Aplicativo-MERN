@@ -1,7 +1,15 @@
 openapi: 3.0.0
 info:
   title: Serviteca Bucaramanga API REST
-  description: Por cambiar
+  description: |-
+    Esta es una API REST que fue desarrollada para sistematizar y controlar diferentes procesos de mucha importancia al interior de una empresa como lo pueden ser las ventas y los inventarios.
+
+    Este proyecto está principalmente enfocado a pequeñas y medianas empresas, como lo puede ser una Serviteca, que requieran de un software de facturación y gestión de inventario y/o presente los siguientes inconvenientes.
+    
+    - Negocios pequeños sin sistema de Gestión de Inventario.
+    - No hay datos concecutivos y ordenados para realizar análisis de las ventas.
+    - Inventario constantemente desactualizado, lo que representa pérdidas en ventas.
+    - Realizar informes y guardar datos de manera manual, consumiendo más tiempo y dinero.
   version: 0.1.9
 
 
@@ -351,7 +359,61 @@ paths:
             description: Error del servidor
 
 # Facturas
+  /api/v1/facturas:
+    get:
+      tags:
+        - Facturas
+      summary: Obtener todas las facturas
+      description: Devuelve una lista con todas las facturas registradas
+      responses:
+        '200':
+          description: Un array JSON con información de el inventario
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Factura'
 
+    post:
+      tags:
+        - Facturas
+      summary: Añade una nueva factura
+      description: Crear una nueva factura junto con todos los datos necesarios.
+      parameters:
+        - $ref: '#/components/parameters/jwtUser'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Factura'
+      responses:
+        '200':
+          description: Factura añadida a la base de datos
+        '401':
+          description: Falta enviar token de autenticación
+        '500':
+          description: Error del servidor
+
+  /api/v1/facturas/{facturaId}:
+    get:
+      tags:
+        - Facturas
+      summary: Obtener facturas en específico
+      description: Devuelve una sola factura
+      parameters:
+        - $ref: '#/components/parameters/facturaID'
+
+      responses:
+        '200':
+          description: Un objeto con la factura registrada que coincida con el id ingresado.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Factura'
+        '401':
+          description: Falta enviar token de autenticación
+        '500':
+          description: Error del servidor
 
 # Inventario
   /api/v1/inventario:
@@ -467,8 +529,63 @@ components:
       schema:
         type: string
       example: w0qGGqucwgpC113p2DFzP
+
+    facturaID:
+      name: facturaId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 0Ky3izFSyof9UStsdp28W
         
   schemas:
+    Factura:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 0Ky3izFSyof9UStsdp28W
+        numeroFactura:
+          type: integer
+          example: 5001
+        clienteId:
+          type: object
+          properties:
+            _id:
+              type: string
+              example: DXo7S2R9n0uGFd31T6LFL
+            nombre:
+              type: string
+              example: William Santamaría
+        productosIds:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: zfdd_Oe96KZXlCFAlUnqu
+              cantidad:
+                type: integer
+                example: 4
+              nombre:
+                type: string
+                example: Llanta Todo Terreno
+              precio:
+                type: integer
+                example: 250000
+        fecha:
+          type: string
+          example: '2023-08-08'
+        iva:
+          type: integer
+          example: 19
+        totalVenta:
+          type: integer
+          example: 415000
+
+        
+
     Cliente:
       type: object
       properties:
