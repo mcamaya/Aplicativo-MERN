@@ -14,23 +14,21 @@ export default function Inventario() {
   }, [alerta]);
 
   const deleteInventario = (id) => {
-    const token = localStorage.getItem("x-auth-token");
 
     fetch(`${urlApi}/${id}`, {
       method: "PATCH",
-      mode: "cors",
       headers: {
         'Access-Control-Allow-Origin': '*',
-        "Content-Type": "application/json",
-        "x-auth-token": token,
+        "Content-Type": "application/json"
       },
       body: {
-        stockDisponible: 0,
+        "stockDisponible": 0,
       },
     })
       .then(setAlerta('Producto sin inventario'))
       .catch((err) => console.log(err));
   };
+  
 
   const fetchInventario = () => {
     fetch(urlApi)

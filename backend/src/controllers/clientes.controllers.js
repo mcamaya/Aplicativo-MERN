@@ -13,6 +13,9 @@ export const getClientes = async (req, res) => {
 export const getClienteByID = async (req, res) => {
     try {
         const cliente = await Cliente.findById({_id:req.params.id});
+        if(cliente == null) {
+            return res.status(404).json({ msg: 'Cliente no encontrado en la base de datos' });
+        }
         res.status(200).json(cliente);
     } catch (err) {
         httpErrors(res, err)
