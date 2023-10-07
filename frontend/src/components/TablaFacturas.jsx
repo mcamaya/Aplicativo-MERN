@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { TableBody, Table, Button, TableCell } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
 import Acordeon from "./Acordeon";
 import "./TablaFacturas.css";
 
 export default function TablaFacturas({ apiData, apiFetch, title }) {
+  const navigate = useNavigate();
   useEffect(() => {
-    apiFetch();
+    const token = localStorage.getItem("x-auth-token");
+    token ? apiFetch() : navigate("/login");
   }, []);
 
   return (
     <div className="facturas-container">
-    <h2>{title}</h2>
+      <h2>{title}</h2>
       <div className="acordeones-container">
         {console.log(apiData)}
         {apiData.map((fct, index) => (

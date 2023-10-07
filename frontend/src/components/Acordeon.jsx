@@ -9,7 +9,7 @@ export default function Acordeon({ totalVenta, productos, cliente, fecha, numero
   // totalVenta, array productos, cliente nombre, fecha, #factura
   return (
     <div>
-      <div lassName="acordeon-item">
+      <div className="acordeon-item">
         <div
           className="acordeon-title"
           onClick={() => setIsAcordeonActive(!isAcordeonActive)}

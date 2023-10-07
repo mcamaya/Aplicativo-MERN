@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, TableBody } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
 import { HiTrash } from "react-icons/hi";
 import { ImPencil } from "react-icons/im";
 import "./MainTable.css";
@@ -12,8 +13,10 @@ export default function MainTable({
   deleteData,
   rowClass,
 }) {
+  const navigate = useNavigate();
   useEffect(() => {
-    apiFetch();
+    const token = localStorage.getItem("x-auth-token");
+    token ? apiFetch() : navigate("/login");
   }, []);
 
   return (
